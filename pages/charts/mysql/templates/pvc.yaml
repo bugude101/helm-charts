@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pvc-brixton
-  namespace: brixton
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
 spec:
-  storageClassName: database-brixton
+  storageClassName: {{ .Release.Name }}-{{ .Chart.Name }}-{{ .Release.Namespace }}
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pv.accessMode }}
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.pvc.resources.requests.storage }}
